@@ -1,4 +1,4 @@
-2.4.3 Released ?? March 2018
+2.4.2.1 Released 31 March 2018
 
 * Bugfix for panel placement in mgllab.
 * Move colorbars close to axis by default.

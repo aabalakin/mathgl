@@ -197,8 +197,8 @@ void PropDialog::getPathF()
 {
 	QString str = QFileDialog::getOpenFileName(this, _("UDAV - Insert filename"),
 					fnt->lineEdit()->text(), _("Font files (*.vfm)"));
-//	if(str.contains(".vfm"))	str = str.left(str.length()-4);
-	if(!str.isEmpty())	fnt->lineEdit()->setText(str);
+	if(!str.isEmpty())
+	{	str = str.mid(0,str.lastIndexOf(".vfm"));	fnt->lineEdit()->setText(str);	}
 }
 //-----------------------------------------------------------------------------
 void PropDialog::setC(int k)

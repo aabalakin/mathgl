@@ -20,6 +20,7 @@
 #include <locale.h>
 #include <getopt.h>
 #include "mgl2/mgl.h"
+#include "mgl2/wnd.h"
 
 #ifdef _MSC_VER
 #define mnpos (std::basic_string<wchar_t>::size_type)-1
@@ -34,8 +35,8 @@ int main(int argc, char *argv[])
 	mglGraph gr;
 	mglParse p(true);
 	char buf[2048], iname[256]="", oname[256]="";
-	std::vector<std::wstring> var;
-	std::wstring str;
+	std::vector<std::wstring> var;	// animation variants
+	std::wstring str;	// script
 	bool none=false;
 
 	while(1)
@@ -61,9 +62,9 @@ int main(int argc, char *argv[])
 		else if(ch=='g')	gr.Gray(atoi(optarg));
 		else if(ch=='A')
 		{
-			std::wstring str;
-			for(size_t i=0;optarg[i];i++)	str.push_back(optarg[i]);
-			var.push_back(str);
+			std::wstring s;
+			for(size_t i=0;optarg[i];i++)	s.push_back(optarg[i]);
+			var.push_back(s);
 		}
 		else if(ch=='C')
 		{
@@ -115,7 +116,7 @@ int main(int argc, char *argv[])
 	while(!feof(fp) && size_t(cw=fgetwc(fp))!=WEOF)	str.push_back(cw);
 	if(*iname)	fclose(fp);
 
-	size_t n;
+/*	size_t n;
 	for(size_t i=0;;)	// collect exact values
 	{
 		n = str.find(L"##a ",i);
@@ -130,7 +131,8 @@ int main(int argc, char *argv[])
 		wchar_t ss[64];
 		for(v=v1;v<=v2;v+=dv)
 		{	mglprintf(ss,64,L"%g",v);	var.push_back(ss);	}
-	}
+	}*/
+	mgl_parse_animation(str.c_str(), var);
 	bool gif = !strcmp(oname+strlen(oname)-4,".gif");
 	gr.SetSize(600,400);	// specially call for "S" option
 	if(var.size()>1)	// there is animation

@@ -24,7 +24,9 @@
 //-----------------------------------------------------------------------------
 MGL_EXPORT void *mgl_draw_calc(void *p);
 void MGL_EXPORT mgl_parse_comments(const char *text, double &a1, double &a2, double &da, std::vector<std::string> &anim, std::string &dlg_ids, std::vector<std::string> &dlg_par);
+void MGL_EXPORT mgl_parse_comments(const wchar_t *text, double &a1, double &a2, double &da, std::vector<std::wstring> &anim, std::string &dlg_ids, std::vector<std::wstring> &dlg_par);
 void MGL_EXPORT mgl_parse_animation(const char *text, std::vector<std::string> &anim);
+void MGL_EXPORT mgl_parse_animation(const wchar_t *text, std::vector<std::wstring> &anim);
 //-----------------------------------------------------------------------------
 /// Class for drawing in windows (like, mglCanvasFL, mglCanvasQT and so on)
 /// Make inherited class and redefine Draw() function if you don't want to use function pointers.
@@ -74,6 +76,7 @@ void MGL_EXPORT mgl_click_class(void *p);
 void MGL_EXPORT mgl_reload_class(void *p);
 void MGL_EXPORT mgl_prop_class(char id, const char *val, void *p);
 void MGL_EXPORT mgl_prop_func(char id, const char *val, void *p);
+extern MGL_EXPORT const char *mgl_hints[];
 }
 //-----------------------------------------------------------------------------
 /// Abstract class for windows displaying graphics

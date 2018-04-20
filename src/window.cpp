@@ -259,6 +259,59 @@ MGL_EXPORT void *mgl_draw_calc(void *p)
 	return 0;
 }
 //-----------------------------------------------------------------------------
+void MGL_EXPORT mgl_parse_comments(const wchar_t *text, double &a1, double &a2, double &da, std::vector<std::wstring> &anim, std::string &ids, std::vector<std::wstring> &par)
+{
+	a1=0;	a2=0;	da=1;
+	const wchar_t *str = wcsstr(text, L"##c");
+	if(str)	// this is animation loop
+	{
+		int res=wscanf(str+3, "%lg%lg%lg", &a1, &a2, &da);
+		da = res<3?1:da;
+		if(res>2 && da*(a2-a1)>0)
+		{
+			for(double a=a1;da*(a2-a)>=0;a+=da)
+			{
+				wchar_t buf[128];	swprintf(buf,128,L"%g",a);
+				anim.push_back(buf);
+			}
+			return;
+		}
+	}
+	str = wcsstr(text, L"##a");
+	while(str)
+	{
+		str += 3;
+		while(*str>0 && *str<=' ' && *str!='\n')	str++;
+		if(*str>' ')
+		{
+			size_t j=0;	while(str[j]>' ')	j++;
+			std::wstring val(str,j);
+			anim.push_back(val);
+		}
+		str = wcsstr(str, L"##a");
+	}
+	str = wcsstr(text, L"##d");	// custom dialog
+	while(str)
+	{
+		str = wcschr(str,'$');
+		if(str)
+		{
+			char id = str[1];	str += 2;
+			while(*str>0 && *str<=' ' && *str!='\n')	str++;
+			if(*str>' ')
+			{
+				long j=0;	while(str[j]!='\n')	j++;
+				while(str[j-1]<=' ')	j--;
+				
+				ids.push_back(id);
+				std::wstring val(str,j);
+				par.push_back(val);
+			}
+		}
+		str = wcsstr(str, L"##d");
+	}
+}
+//-----------------------------------------------------------------------------
 void MGL_EXPORT mgl_parse_comments(const char *text, double &a1, double &a2, double &da, std::vector<std::string> &anim, std::string &ids, std::vector<std::string> &par)
 {
 	a1=0;	a2=0;	da=1;
@@ -319,4 +372,36 @@ void MGL_EXPORT mgl_parse_animation(const char *text, std::vector<std::string> &
 	double a1, a2, da;
 	mgl_parse_comments(text, a1, a2, da, anim, ids, par);
 }
+//-----------------------------------------------------------------------------
+void MGL_EXPORT mgl_parse_animation(const wchar_t *text, std::vector<std::wstring> &anim)
+{
+	std::string ids;
+	std::vector<std::wstring> par;
+	double a1, a2, da;
+	mgl_parse_comments(text, a1, a2, da, anim, ids, par);
+}
+//-----------------------------------------------------------------------------
+MGL_EXPORT const char *mgl_hints[] = {
+	_("You can shift axis range by pressing middle button and moving mouse. Also, you can zoom in/out axis range by using mouse wheel."),
+	_("You can rotate/shift/zoom whole plot by mouse. Just press 'Rotate' toolbutton, click image and hold a mouse button: left button for rotation, right button for zoom/perspective, middle button for shift."),
+	_("You may quickly draw the data from file. Just use: mgllab 'filename.dat' in command line."),
+	_("You can copy the current image to clipboard by pressing Ctrl-Shift-C. Later you can paste it directly into yours document or presentation."),
+	_("You can export image into a set of format (EPS, SVG, PNG, JPEG) by pressing right mouse button inside image and selecting 'Export as ...'."),
+	_("You can setup colors for script highlighting in Property dialog. Just select menu item 'Settings/Properties'."),
+	_("You can save the parameter of animation inside MGL script by using comment started from '##a ' or '##c ' for loops."),
+	_("New drawing never clears things drawn already. For example, you can make a surface with contour lines by calling commands 'surf' and 'cont' one after another (in any order). "),
+	_("You can put several plots in the same image by help of commands 'subplot' or 'inplot'."),
+	_("All indexes (of data arrays, subplots and so on) are always start from 0."),
+	_("You can edit MGL file in any text editor. Also you can run it in console by help of commands: mglconv, mglview."),
+	_("You can use command 'once on|off' for marking the block which should be executed only once. For example, this can be the block of large data reading/creating/handling. Press F9 (or menu item 'Graphics/Reload') to re-execute this block."),
+	_("You can use command 'stop' for terminating script parsing. It is useful if you don't want to execute a part of script."),
+	_("You can type arbitrary expression as input argument for data or number. In last case (for numbers), the first value of data array is used."),
+	_("There is powerful calculator with a lot of special functions. You can use buttons or keyboard to type the expression. Also you can use existed variables in the expression."),
+	_("The calculator can help you to put complex expression in the script. Just type the expression (which may depend on coordinates x,y,z and so on) and put it into the script."),
+	_("You can easily insert file or folder names, last fitted formula or numerical value of selection by using menu Edit|Insert."),
+	_("The special dialog (Edit|Insert|New Command) help you select the command, fill its arguments and put it into the script."),
+	_("You can put several plotting commands in the same line or in separate function, for highlighting all of them simultaneously."),
+	_("You can concatenation of strings and numbers using `,` with out spaces (for example, `'max(u)=',u.max,' a.u.'` or `'u=',!(1+i2)` for complex numbers). Also you can get n-th symbol of the string using `[]` (for example, `'abc'[1]` will give 'b'), or add a value to the last character of the string using `+` (for example, `'abc'+3` will give 'abf'), or use it all together."),
+	NULL
+};
 //-----------------------------------------------------------------------------

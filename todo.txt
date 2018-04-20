@@ -30,10 +30,8 @@
 2. Quality=3 for mirror+shadows? Couldn't be in bitmap only mode
 4. "latex on" option ?!?
 
-5. Custom dialog in QMathGL
 6. Add "text3d x y z lx ly lz nx ny nz 'txt' ['stl'='' depth=0.1 depth2=nan]"
 7. Mask in EPS/SVG
-8. Animation in UDAV from ##c, ##a + remove old entries at "Put to script" (the same in mgllab)
 
 ZZ. Update *.i for new functions {before release!!!}
 
@@ -82,6 +80,8 @@ D. Docs about JS interface
 	* Example of 'progress'
 	
 3. Docs about mgllab (overview, dialogs, ...)
+4. Example of Evaluate + ".mx" ???
+5. Add style '^','_' for 'smooth' to find upper/lower bounds.
 
 ZZ. Update time.texi {before release!!!}
 
@@ -97,7 +97,6 @@ ZZ. Update time.texi {before release!!!}
 * Manual data changing should be written into script ?!?
 * Check: "You can shift axis range by pressing middle button and moving mouse. Also, you can zoom in/out axis range by using mouse wheel."
 * Shift/Zoom/Perspective by mouse!!!
-* Hint about string manipulation
 * 1d view -- over longer size + y-size for current slice only
 * info about used memory for graphics
 * abort saving shouldn't switch off "modified" flag (check!)
@@ -109,9 +108,6 @@ ZZ. Update time.texi {before release!!!}
 
 X. Own file-chooser dialog -- separate path and fname fields + add sorting by date|size
 Y. Window with Zoom/Hidden ???
-Z. Flat toolbuttons ???
-
-
 
 ============= UDAV =============
 
@@ -130,10 +126,10 @@ Z. Flat toolbuttons ???
 9. Save data from the summary panel
 10. Select subdata section (between NAN in curve) by mouse + adding it to script ?!!
 11. Zoom in a region by middle mouse (if not in rotation mode)
-12. Extend 'ask' by adding multiple questions simultaneously (+ set/get default values from file ???)
-13. Substitute correct name for font files in PropDlg
 * "debug" mode?!? or breakpoints?!
 * collect mouse clicks to draw line(s) and save it into data
+* Animation from ##c, ##a + remove old entries at "Put to script" (the same in mgllab)
+* Custom dialog in QMathGL
 
 ============= UNSURE ===========
 

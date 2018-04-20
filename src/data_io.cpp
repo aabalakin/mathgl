@@ -751,21 +751,21 @@ mreal MGL_EXPORT mgl_data_max_real(HCDT d, mreal *x, mreal *y, mreal *z)
 		if(im==0)	im=1;
 		if(im==nx-1)im=nx-2;
 		v1 = d->v(im+1,jm,km);	v2 = d->v(im-1,jm,km);
-		*x = (v1+v2-2*v)==0 ? im : im+(v1-v2)/(v1+v2-2*v)/2;
+		*x = (v1+v2-2*v)==0 ? im : im+(v2-v1)/(v1+v2-2*v)/2;
 	}
 	if(ny>2)
 	{
 		if(jm==0)	jm=1;
 		if(jm==ny-1)jm=ny-2;
 		v1 = d->v(im,jm+1,km);	v2 = d->v(im,jm-1,km);
-		*y = (v1+v2-2*v)==0 ? jm : jm+(v1-v2)/(v1+v2-2*v)/2;
+		*y = (v1+v2-2*v)==0 ? jm : jm+(v2-v1)/(v1+v2-2*v)/2;
 	}
 	if(nz>2)
 	{
 		if(km==0)	km=1;
 		if(km==nz-1)km=nz-2;
 		v1 = d->v(im,jm,km+1);	v2 = d->v(im,jm,km-1);
-		*z = (v1+v2-2*v)==0 ? km : km+(v1-v2)/(v1+v2-2*v)/2;
+		*z = (v1+v2-2*v)==0 ? km : km+(v2-v1)/(v1+v2-2*v)/2;
 	}
 	return m;
 }
@@ -785,21 +785,21 @@ mreal MGL_EXPORT mgl_data_min_real(HCDT d, mreal *x, mreal *y, mreal *z)
 		if(im==0)	im=1;
 		if(im==nx-1)im=nx-2;
 		v1 = d->v(im+1,jm,km);	v2 = d->v(im-1,jm,km);
-		*x = (v1+v2-2*v)==0 ? im : im+(v1-v2)/(v1+v2-2*v)/2;
+		*x = (v1+v2-2*v)==0 ? im : im+(v2-v1)/(v1+v2-2*v)/2;
 	}
 	if(ny>2)
 	{
 		if(jm==0)	jm=1;
 		if(jm==ny-1)jm=ny-2;
 		v1 = d->v(im,jm+1,km);	v2 = d->v(im,jm-1,km);
-		*y = (v1+v2-2*v)==0 ? jm : jm+(v1-v2)/(v1+v2-2*v)/2;
+		*y = (v1+v2-2*v)==0 ? jm : jm+(v2-v1)/(v1+v2-2*v)/2;
 	}
 	if(nz>2)
 	{
 		if(km==0)	km=1;
 		if(km==nz-1)km=nz-2;
 		v1 = d->v(im,jm,km+1);	v2 = d->v(im,jm,km-1);
-		*z = (v1+v2-2*v)==0 ? km : km+(v1-v2)/(v1+v2-2*v)/2;
+		*z = (v1+v2-2*v)==0 ? km : km+(v2-v1)/(v1+v2-2*v)/2;
 	}
 	return m;
 }

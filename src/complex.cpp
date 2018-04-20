@@ -110,7 +110,7 @@ static void *mgl_csmth_x(void *par)
 			else	j=i;
 			for(long k=-kind;k<=kind;k++)	b[i] += a[j+k]/mreal(2*kind+1);
 		}
-	else
+	else if(kind==-1)
 #if !MGL_HAVE_PTHREAD
 #pragma omp parallel for
 #endif
@@ -188,45 +188,45 @@ static void *mgl_csmth_z(void *par)
 void MGL_EXPORT mgl_datac_smooth(HADT d, const char *dirs, mreal )
 {
 	long Type = -1;
-	if(!dirs || *dirs==0)	dirs = "xyz";
-	if(strchr(dirs,'0'))	return;
-	if(strchr(dirs,'d'))
+	if(mglchr(dirs,'0'))	return;
+	bool xdir=mglchr(dirs,'x'), ydir=mglchr(dirs,'y'), zdir=mglchr(dirs,'z');
+	if(!xdir && !ydir && !zdir)	xdir=ydir=zdir=true;
+	if(mglchr(dirs,'d'))
 	{
-		if(strchr(dirs,'1'))	Type = 1;
-		if(strchr(dirs,'2'))	Type = 2;
-		if(strchr(dirs,'3'))	Type = 3;
-		if(strchr(dirs,'4'))	Type = 4;
-		if(strchr(dirs,'5'))	Type = 5;
-		if(strchr(dirs,'6'))	Type = 6;
-		if(strchr(dirs,'7'))	Type = 7;
-		if(strchr(dirs,'8'))	Type = 8;
-		if(strchr(dirs,'9'))	Type = 9;
+		if(mglchr(dirs,'1'))	Type = 1;
+		if(mglchr(dirs,'2'))	Type = 2;
+		if(mglchr(dirs,'3'))	Type = 3;
+		if(mglchr(dirs,'4'))	Type = 4;
+		if(mglchr(dirs,'5'))	Type = 5;
+		if(mglchr(dirs,'6'))	Type = 6;
+		if(mglchr(dirs,'7'))	Type = 7;
+		if(mglchr(dirs,'8'))	Type = 8;
+		if(mglchr(dirs,'9'))	Type = 9;
 	}
 	else
 	{
-		if(strchr(dirs,'1'))	return;
-		if(strchr(dirs,'3'))	Type = 1;
-		if(strchr(dirs,'5'))	Type = 2;
+		if(mglchr(dirs,'1'))	return;
+		if(mglchr(dirs,'3'))	Type = 1;
+		if(mglchr(dirs,'5'))	Type = 2;
 	}
 	long nx=d->nx,ny=d->ny,nz=d->nz;
 //	if(Type == SMOOTH_NONE)	return;
 	long p[3]={nx,ny,Type};
 	dual *b = new dual[nx*ny*nz];
-	// ����������� �� x
 	memset(b,0,nx*ny*nz*sizeof(dual));
-	if(nx>4 && strchr(dirs,'x'))
+	if(nx>4 && xdir)
 	{
 		mglStartThreadC(mgl_csmth_x,0,nx*ny*nz,b,d->a,0,p);
 		memcpy(d->a,b,nx*ny*nz*sizeof(dual));
 		memset(b,0,nx*ny*nz*sizeof(dual));
 	}
-	if(ny>4 && strchr(dirs,'y'))
+	if(ny>4 && ydir)
 	{
 		mglStartThreadC(mgl_csmth_y,0,nx*ny*nz,b,d->a,0,p);
 		memcpy(d->a,b,nx*ny*nz*sizeof(dual));
 		memset(b,0,nx*ny*nz*sizeof(dual));
 	}
-	if(nz>4 && strchr(dirs,'z'))
+	if(nz>4 && zdir)
 	{
 		mglStartThreadC(mgl_csmth_z,0,nx*ny*nz,b,d->a,0,p);
 		memcpy(d->a,b,nx*ny*nz*sizeof(dual));
