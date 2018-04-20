@@ -1,0 +1,144 @@
+-Wall -Wsuggest-attribute=pure -Wsuggest-attribute=const
+
+============= FAR FUTURE ================
+
+1. Export to COLLADA or X3D !!!
+2. Read DICOM, MAT, WFM files
+
+3. Contour lines for bilinear interpolation (strong saddle-like faces) -- best way by adding curve primitive (type=5)?!?
+4. 3D text (with depth), and text along 3D curve (for Quality=3) ???
+5. Get true coordinates in CalcXYZ for curved equations too.
+6. Extra markers for '&' and '&#' signs ?!? or user-defined signs
+
+7. Improve z-order for rapidly oscillating surfaces (сравнение проекций центров на грань -- too slow)
+
+8. Enable consecutive (as multiplication of matrices instead of single summary one) rotation of axis + the same in JS. Problem with widgets?!?
+
+9. Export background image to svg ???
+
+10. Frames by mouse in UDAV ???
+	A. мысли о frame??? для группы графиков -- не "удалять" их, а запихивать в отдельный кадр -- вопрос что с анимацией???
+	B. как делать анимацию (кадры) для мышиной версии ... список кадров, кнопки добавить в кадры + вставить из кадра
+
+11. Parallel drawing in QMathGL (looks to complicated -- FLTK is better!)
+12. \overline{\overline{a}} ???
+13. Use arrow_plot_3d ???
+
+============= NEW FEATURES =============
+
+1. Centered curved text (see text2)
+2. Quality=3 for mirror+shadows? Couldn't be in bitmap only mode
+4. "latex on" option ?!?
+
+5. Custom dialog in QMathGL
+6. Add "text3d x y z lx ly lz nx ny nz 'txt' ['stl'='' depth=0.1 depth2=nan]"
+7. Mask in EPS/SVG
+8. Animation in UDAV from ##c, ##a + remove old entries at "Put to script" (the same in mgllab)
+
+ZZ. Update *.i for new functions {before release!!!}
+
+curve_draw: step?, bifurcation?, flow3d
+
+============= DOCUMENTATION =============
+
+A. Paper about MathGL!!!
+B. Add chapter with real samples
+C. Translate to Russian everything
+D. Docs about JS interface
+
+0. Update Qt and UDAV figures
+1. Update installation (dll from mgl_script + Qt plugins/ + Win10)
+
+2. Add more samples:
+	* Example of 'contp', 'flowp'
+	* Example of frame manipulation
+	* Example of 'title' style '#'
+	* Example of 'triplot'+'quadplot' with colors per-face
+	* Example of 'tricontv'
+	* Example of 'grad_xyz'
+	* Example of 'flow', 'pipe' style '*'.
+	* Example of 'fsurf'
+	* Example of 'tile','tiles' styles 'x', 'z'
+	* Example of 'lamerey' style '~'
+	* Example of 'iris', extended
+	* Example of wired 'area' and 'region' (2d case), 'region' with !z1||!z2 (?!?)
+	* Example of 'step' with markers; 'barh', 'bars' (3d) style 'F'
+	* Example of CalcXYZ()
+	* Example of 'clf' with color, 'rasterize', 'loadbackground', 'logo'
+	* Example of 'pde' in 3d, and 'qo3d'
+	* Example of 'tridmat' in all 5 modes, and for real numbers too.
+	* Example of "data" creation {'list', 'def*','ask','{OP DAT}'}
+	* Example of 'rk_step'
+	* Example of 'openhdf'
+	* Extend examples of 'fit' and 'hist' in multi-dimension case.
+	* Example of complex 'hankel' for PDE solving
+	* Example of 'wavelet'
+	* Example of time-values in formulas (like hh-mm-ss_DD.MM.YYYY or hh-mm-ss or DD.MM.YYYY)
+	* Example of Step, Bars for x.nx = y.nx+1
+	* Example of `dat <==> Transpose(dat).
+	* Example of 'coil'
+	* Example of 'roots'
+	* Example of custom dialog
+	* Example of 'progress'
+	
+3. Docs about mgllab (overview, dialogs, ...)
+
+ZZ. Update time.texi {before release!!!}
+
+как начать пользоваться (quickstart)
+как скомпилировать и установить (building & installing)
+как запустить (running)
+как протестировать свои правки (testing)
+как настроить (configuration)
+какие есть примеры использования (examples)
+
+============= mgllab ===========
+
+* Manual data changing should be written into script ?!?
+* Check: "You can shift axis range by pressing middle button and moving mouse. Also, you can zoom in/out axis range by using mouse wheel."
+* Shift/Zoom/Perspective by mouse!!!
+* Hint about string manipulation
+* 1d view -- over longer size + y-size for current slice only
+* info about used memory for graphics
+* abort saving shouldn't switch off "modified" flag (check!)
+* "debug" mode?!? or breakpoints?!
+* something strange with highlighting
+* collect mouse clicks to draw line(s) and save it into data
+* select 'bbox' by mouse
+* dialog to visual construct "custom dialog" + read/add "##d" to the end of file.
+
+X. Own file-chooser dialog -- separate path and fname fields + add sorting by date|size
+Y. Window with Zoom/Hidden ???
+Z. Flat toolbuttons ???
+
+
+
+============= UDAV =============
+
+1. Zoom rectangle after mouse selection
+
+3. Manual data changing should be written into script
+	a. Suggest to save into HDF5 if data changed manually
+	b. Each manual change in cell produce command like 'put dat val i j k'
+	c. Add command to insert as 'list'
+	d. Reset script after saving to HDF5 or putting to main script
+	e. Ask about script changes before closing data tab
+4. List of constants into the list of data?!
+5. Add color cycle ???
+6. Color position in color scheme dialog
+7. Select 'bbox' by mouse
+9. Save data from the summary panel
+10. Select subdata section (between NAN in curve) by mouse + adding it to script ?!!
+11. Zoom in a region by middle mouse (if not in rotation mode)
+12. Extend 'ask' by adding multiple questions simultaneously (+ set/get default values from file ???)
+13. Substitute correct name for font files in PropDlg
+* "debug" mode?!? or breakpoints?!
+* collect mouse clicks to draw line(s) and save it into data
+
+============= UNSURE ===========
+
+1. GTK window/widgets ???
+2. "Cut off" curves if text is printed inside it (for contour labels) ?!?
+5. Check RunThr() in python/octave
+6. Auto axis range for formulas, like AutoRange("y(x)") or AutoRange('x',"x(t)").
+7. Use Hershey as built-in font ??? -- for smaller size only
